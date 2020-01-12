@@ -60,13 +60,11 @@ public class Character : MonoBehaviour
     {
         if (isGrounded)
         {
-            Debug.Log("jumpped");
             rb.AddForce(Vector3.up * Mathf.Sqrt(jumpHeight * -2f * Physics.gravity.y), ForceMode.VelocityChange);
             isGrounded = false;
         }
         else if (jumpsRemaining > 0)
         {
-            Debug.Log("second jump");
             rb.AddForce(Vector3.up * Mathf.Sqrt(jumpHeight * -2f * Physics.gravity.y), ForceMode.VelocityChange);
             isGrounded = false;
             jumpsRemaining -= 1;
