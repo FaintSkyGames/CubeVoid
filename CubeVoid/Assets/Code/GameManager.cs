@@ -9,11 +9,13 @@ public class GameManager : MonoBehaviour
 
     public void StartGame()
     {
+        PlayerPrefs.SetInt("Stars Collected", 0);
         SceneManager.LoadScene("Level1");
     }
 
     public void QuitGame()
     {
+        PlayerPrefs.SetInt("Stars Collected", 0);
         Application.Quit();
     }
 
@@ -30,5 +32,11 @@ public class GameManager : MonoBehaviour
                 controls.active = false;
             }
         }        
+    }
+
+    public void BackToMenu()
+    {
+        PlayerPrefs.SetInt("Stars Collected", 0);
+        SceneManager.LoadScene("TitleScreen");
     }
 }

@@ -13,6 +13,8 @@ public class Character : MonoBehaviour
     public bool isGrounded = true;
     private int jumpsRemaining;
 
+    public GameObject spawnPoint;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -28,16 +30,24 @@ public class Character : MonoBehaviour
         playerInputs.x = Input.GetAxis("Horizontal");
         ChangeZAxis();
 
-        rb.MovePosition(rb.position + playerInputs * speed * Time.fixedDeltaTime);
+        //rb.MovePosition(rb.position + playerInputs * speed * Time.fixedDeltaTime);
 
-    }
-
-    private void FixedUpdate()
-    {
         if (Input.GetButtonDown("Jump"))
         {
             Jump();
         }
+
+        if (Input.GetKeyDown("r"))
+        {
+            Respawn();
+        }
+
+        //Debug.Log(isGrounded);
+    }
+
+    private void FixedUpdate()
+    {
+        rb.MovePosition(rb.position + playerInputs * speed * Time.fixedDeltaTime);
     }
 
     private void ChangeZAxis()
@@ -75,5 +85,15 @@ public class Character : MonoBehaviour
     {
         isGrounded = true;
         jumpsRemaining = maxJumps;
+
+        if (collision.gameObject.tag == "Respawn")
+        {
+            spawnPoint = collision.gameObject;
+        }
+    }
+
+    public void Respawn()
+    {
+        rb.transform.position = spawnPoint.transform.position;
     }
 }

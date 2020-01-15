@@ -16,9 +16,10 @@ public class CameraMovement : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         oppositeZValue = new Vector3(0, 0, player.transform.position.z);
-        transform.position = player.transform.position + offset - oppositeZValue;
+        //transform.position = player.transform.position + offset - oppositeZValue;
+        transform.position = Vector3.Slerp(player.transform.position + offset - oppositeZValue, transform.position, 0.95f);
     }
 }

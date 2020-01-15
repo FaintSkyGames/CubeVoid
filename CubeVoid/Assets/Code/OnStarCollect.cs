@@ -9,6 +9,8 @@ public class OnStarCollect : MonoBehaviour
     public GameObject stars;
     private bool allCollected = false;
 
+    public GameManager gameSystem;
+
     //public GameObject txt;
 
     // Start is called before the first frame update
@@ -43,6 +45,7 @@ public class OnStarCollect : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player" && allCollected == true)
         {
+            gameSystem.BackToMenu();
             //Debug.Log("EndGame");
         }
     }
