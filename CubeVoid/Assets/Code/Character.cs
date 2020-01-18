@@ -15,9 +15,12 @@ public class Character : MonoBehaviour
 
     public GameObject spawnPoint;
 
+    public bool canMove = true;
+
     // Start is called before the first frame update
     void Start()
     {
+        
         rb = GetComponent<Rigidbody>();
         jumpsRemaining = maxJumps;
     }
@@ -25,29 +28,38 @@ public class Character : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        playerInputs = Vector3.zero;
-
-        playerInputs.x = Input.GetAxis("Horizontal");
-        ChangeZAxis();
-
-        //rb.MovePosition(rb.position + playerInputs * speed * Time.fixedDeltaTime);
-
-        if (Input.GetButtonDown("Jump"))
+        if (canMove)
         {
-            Jump();
+            playerInputs = Vector3.zero;
+
+            playerInputs.x = Input.GetAxis("Horizontal");
+            ChangeZAxis();
+
+            //rb.MovePosition(rb.position + playerInputs * speed * Time.fixedDeltaTime);
+
+            if (Input.GetButtonDown("Jump"))
+            {
+                Jump();
+            }
+
+            if (Input.GetKeyDown("r"))
+            {
+                Respawn();
+            }
+
+            //Debug.Log(isGrounded);
+
         }
 
-        if (Input.GetKeyDown("r"))
-        {
-            Respawn();
-        }
-
-        //Debug.Log(isGrounded);
     }
 
     private void FixedUpdate()
     {
-        rb.MovePosition(rb.position + playerInputs * speed * Time.fixedDeltaTime);
+        if (canMove)
+        {
+            rb.MovePosition(rb.position + playerInputs * speed * Time.fixedDeltaTime);
+        }
+        
     }
 
     private void ChangeZAxis()

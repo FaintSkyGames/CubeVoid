@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class StarCollect : MonoBehaviour
 {
+    public ParticleSystem sparkle;
+
     private bool collected = false;
 
     private MeshRenderer mRender;
@@ -16,6 +18,7 @@ public class StarCollect : MonoBehaviour
         mRender.enabled = true;
         mCollider = GetComponent<MeshCollider>();
         mCollider.enabled = true;
+
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -24,6 +27,10 @@ public class StarCollect : MonoBehaviour
         {
             mRender.enabled = false;
             mCollider.enabled = false;
+
+            GetComponent<AudioSource>().Play();
+
+            sparkle.Play();
 
             collected = true;
             PlayerPrefs.SetInt("Stars Collected", PlayerPrefs.GetInt("Stars Collected") + 1);
