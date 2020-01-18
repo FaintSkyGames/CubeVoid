@@ -17,12 +17,39 @@ public class Character : MonoBehaviour
 
     public bool canMove = true;
 
+    private Animator anim;
+    private CameraShake shake;
+
     // Start is called before the first frame update
     void Start()
     {
-        
         rb = GetComponent<Rigidbody>();
         jumpsRemaining = maxJumps;
+
+        shake = GameObject.FindGameObjectWithTag("shake").GetComponent<CameraShake>();
+
+        AnimationClip clip;
+        
+        AnimationEvent evt1;
+        evt1 = new AnimationEvent();
+
+        evt1.functionName = "AddForceToJump";
+
+        anim = GetComponent<Animator>();
+        clip = anim.runtimeAnimatorController.animationClips[1];
+
+        clip.AddEvent(evt1);
+
+        AnimationEvent evt2;
+        evt2 = new AnimationEvent();
+
+        evt2.functionName = "Impact";
+
+        anim = GetComponent<Animator>();
+        clip = anim.runtimeAnimatorController.animationClips[3];
+
+        clip.AddEvent(evt2);
+
     }
 
     // Update is called once per frame
@@ -41,6 +68,16 @@ public class Character : MonoBehaviour
             {
                 Jump();
             }
+
+            if (isGrounded == true)
+            {
+                anim.SetBool("isJumping", false);
+            }
+            else
+            {
+                anim.SetBool("isJumping", true);
+            }
+
 
             if (Input.GetKeyDown("r"))
             {
@@ -82,12 +119,14 @@ public class Character : MonoBehaviour
     {
         if (isGrounded)
         {
-            rb.AddForce(Vector3.up * Mathf.Sqrt(jumpHeight * -2f * Physics.gravity.y), ForceMode.VelocityChange);
+            anim.SetTrigger("takeOff");
+            //rb.AddForce(Vector3.up * Mathf.Sqrt(jumpHeight * -2f * Physics.gravity.y), ForceMode.VelocityChange);
             isGrounded = false;
         }
         else if (jumpsRemaining > 0)
         {
-            rb.AddForce(Vector3.up * Mathf.Sqrt(jumpHeight * -2f * Physics.gravity.y), ForceMode.VelocityChange);
+            anim.SetTrigger("takeOff");
+            //rb.AddForce(Vector3.up * Mathf.Sqrt(jumpHeight * -2f * Physics.gravity.y), ForceMode.VelocityChange);
             isGrounded = false;
             jumpsRemaining -= 1;
         }
@@ -107,5 +146,15 @@ public class Character : MonoBehaviour
     public void Respawn()
     {
         rb.transform.position = spawnPoint.transform.position;
+    }
+
+    public void AddForceToJump(int i)
+    {
+        rb.AddForce(Vector3.up * Mathf.Sqrt(jumpHeight * -2f * Physics.gravity.y), ForceMode.VelocityChange);
+    }
+
+    public void Impact(int i) 
+    {
+        shake.CamShake();
     }
 }
