@@ -27,10 +27,10 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 5927920120514438642}
   - {fileID: 5927920121774987289}
   - {fileID: 5927920120791464370}
   - {fileID: 5927920119917379603}
-  - {fileID: 5927920120514438642}
   - {fileID: 5927920120815374847}
   - {fileID: 5927920121402483436}
   m_Father: {fileID: 914863044497933946}
@@ -271,6 +271,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   totalStars: 2
   stars: {fileID: 192079781}
+  gameSystem: {fileID: 0}
 --- !u!65 &8296172668369772397
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -339,7 +340,7 @@ PrefabInstance:
     - target: {fileID: 1985164019115826077, guid: 6218107567e77c449bba43399507cd70,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1985164019115826077, guid: 6218107567e77c449bba43399507cd70,
         type: 3}
@@ -529,7 +530,7 @@ PrefabInstance:
     - target: {fileID: 1985164019115826077, guid: 6218107567e77c449bba43399507cd70,
         type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1985164019115826077, guid: 6218107567e77c449bba43399507cd70,
         type: 3}
@@ -719,7 +720,7 @@ PrefabInstance:
     - target: {fileID: 1985164019115826077, guid: 6218107567e77c449bba43399507cd70,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1985164019115826077, guid: 6218107567e77c449bba43399507cd70,
         type: 3}
@@ -814,7 +815,7 @@ PrefabInstance:
     - target: {fileID: 1985164019115826077, guid: 6218107567e77c449bba43399507cd70,
         type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1985164019115826077, guid: 6218107567e77c449bba43399507cd70,
         type: 3}

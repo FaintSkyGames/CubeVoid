@@ -20,6 +20,8 @@ public class Character : MonoBehaviour
     private Animator anim;
     private CameraShake shake;
 
+    public ParticleSystem splashLanding;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -125,6 +127,7 @@ public class Character : MonoBehaviour
         }
         else if (jumpsRemaining > 0)
         {
+            splashLanding.Play();
             anim.SetTrigger("takeOff");
             //rb.AddForce(Vector3.up * Mathf.Sqrt(jumpHeight * -2f * Physics.gravity.y), ForceMode.VelocityChange);
             isGrounded = false;
@@ -156,5 +159,6 @@ public class Character : MonoBehaviour
     public void Impact(int i) 
     {
         shake.CamShake();
+        splashLanding.Play();
     }
 }
