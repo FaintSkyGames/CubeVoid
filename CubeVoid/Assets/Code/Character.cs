@@ -4,101 +4,92 @@ using UnityEngine;
 
 public class Character : MonoBehaviour
 {
-    public float speed = 3;
-    public float jumpHeight = 2;
-    public Vector3 playerInputs = Vector3.zero;
-    private Rigidbody rb;
+    //Raycasting
+    public float raycastTargetDistance;
+    private RaycastHit baseHit; //To prevent recalculating
 
+    //Jump variables
+    public float jumpHeight = 2;
     public int maxJumps = 1;
-    public bool isGrounded = true;
     private int jumpsRemaining;
 
+    public float speed = 3;
+
+    //Status variables
+    public bool isGrounded = true;
+    public bool groundPound = false;
+
+    private Rigidbody rb;
+    private Vector3 playerInputs = Vector3.zero;
+    public bool canMove = true; //To prevent movement when paused
+
+    //Non player
     public GameObject spawnPoint;
 
-    public bool canMove = true;
-
+    //Visual
     private Animator anim;
     private CameraShake shake;
-
     public ParticleSystem splashLanding;
-    public TrailRenderer trail;
+    public ParticleSystem splashLandingHeavy;
+    private EchoEffect echo;
+    private bool heavyAnimation = false;
 
-    public EchoEffect echo;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        echo = GetComponent<EchoEffect>();
-
         rb = GetComponent<Rigidbody>();
-        jumpsRemaining = maxJumps;
+        anim = GetComponent<Animator>();
+        echo = GetComponent<EchoEffect>();
 
         shake = GameObject.FindGameObjectWithTag("shake").GetComponent<CameraShake>();
 
         AnimationClip clip;
-        
-        AnimationEvent evt1;
-        evt1 = new AnimationEvent();
 
-        evt1.functionName = "AddForceToJump";
-
+        //Get jump and animation to happen at same time
+        AnimationEvent jump;
+        jump = new AnimationEvent();
+        jump.functionName = "AddForceToJump";
         anim = GetComponent<Animator>();
         clip = anim.runtimeAnimatorController.animationClips[1];
+        clip.AddEvent(jump);
 
-        clip.AddEvent(evt1);
-
-        AnimationEvent evt2;
-        evt2 = new AnimationEvent();
-
-        evt2.functionName = "Impact";
-
+        //Get in world effects and player animation to happen at same time
+        AnimationEvent impact;
+        impact = new AnimationEvent();
+        impact.functionName = "Impact";
         anim = GetComponent<Animator>();
         clip = anim.runtimeAnimatorController.animationClips[3];
+        clip.AddEvent(impact);
 
-        clip.AddEvent(evt2);
-
-        TrailRenderer prefab = Instantiate(trail);
-        prefab.transform.parent = this.transform;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
         if (canMove)
         {
-            playerInputs = Vector3.zero;
 
+            Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out baseHit);
+            raycastTargetDistance = baseHit.distance;
+
+            SetGrounded(baseHit);
+
+            //Get inputs
+            playerInputs = Vector3.zero;
             playerInputs.x = Input.GetAxis("Horizontal");
+
+            //Adjust position
             ChangeZAxis();
 
-            //rb.MovePosition(rb.position + playerInputs * speed * Time.fixedDeltaTime);
-
-            if (Input.GetButtonDown("Jump"))
-            {
-                Jump();
-            }
-
-            if (isGrounded == true)
-            {
-                anim.SetBool("isJumping", false);
-            }
-            else
-            {
-                anim.SetBool("isJumping", true);
-            }
-
-
-            if (Input.GetKeyDown("r"))
-            {
-                Respawn();
-            }
-
-            //Debug.Log(isGrounded);
+            //Perform special moves
+            if (Input.GetButtonDown("Jump")) { Jump(); }
+            if (Input.GetKeyDown(KeyCode.LeftShift)) { Pound(); }
+            if (Input.GetKeyDown("r")) { Respawn(); }
 
         }
-
     }
 
+    //Move player
+    //In here for camera to way it should
     private void FixedUpdate()
     {
         if (canMove)
@@ -106,7 +97,20 @@ public class Character : MonoBehaviour
             rb.MovePosition(rb.position + playerInputs * speed * Time.fixedDeltaTime);
             echo.CreateEcho();
         }
-        
+    }
+
+    void SetGrounded(RaycastHit hit)
+    {
+        if (hit.distance <= 0.4f)
+        {
+            isGrounded = true;
+            anim.SetBool("isJumping", false);
+        }
+        else
+        {
+            isGrounded = false;
+            anim.SetBool("isJumping", true);
+        }
     }
 
     private void ChangeZAxis()
@@ -127,26 +131,67 @@ public class Character : MonoBehaviour
 
     private void Jump()
     {
+        RaycastHit jumpHit;
+        Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out jumpHit);
+        SetGrounded(jumpHit);
+
         if (isGrounded)
         {
+            splashLanding.Play();
             anim.SetTrigger("takeOff");
-            //rb.AddForce(Vector3.up * Mathf.Sqrt(jumpHeight * -2f * Physics.gravity.y), ForceMode.VelocityChange);
             isGrounded = false;
+            rb.MovePosition(rb.position + new Vector3(0, 0.2f, 0)); //Prevent issue with raycast
         }
         else if (jumpsRemaining > 0)
         {
             splashLanding.Play();
             anim.SetTrigger("takeOff");
-            //rb.AddForce(Vector3.up * Mathf.Sqrt(jumpHeight * -2f * Physics.gravity.y), ForceMode.VelocityChange);
-            isGrounded = false;
             jumpsRemaining -= 1;
         }
     }
 
+    private void Pound()
+    {
+        if (!isGrounded)
+        {
+            groundPound = true;
+            heavyAnimation = true;
+            AddForceToFall();
+        }
+    }
+
+    private void Respawn()
+    {
+        rb.transform.position = spawnPoint.transform.position;
+    }
+
+    public void AddForceToJump()
+    {
+        rb.AddForce(Vector3.up * Mathf.Sqrt(jumpHeight * -2f * Physics.gravity.y), ForceMode.VelocityChange);
+    }
+
+    public void AddForceToFall()
+    {
+        rb.AddForce(Vector3.down * Mathf.Sqrt(-6f * Physics.gravity.y), ForceMode.VelocityChange);
+    }
+
+    //On collision respawn, break blocks or gain jumps
     private void OnCollisionEnter(Collision collision)
     {
-        isGrounded = true;
-        jumpsRemaining = maxJumps;
+        if (groundPound == true)
+        {
+            //Will not always have a reciever
+            collision.gameObject.SendMessage("GroundPound");
+            groundPound = false;
+        }
+
+        RaycastHit colliderHit;
+        Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out colliderHit);
+        SetGrounded(colliderHit);
+        if (isGrounded)
+        {
+            jumpsRemaining = maxJumps;
+        }
 
         if (collision.gameObject.tag == "Respawn")
         {
@@ -154,23 +199,19 @@ public class Character : MonoBehaviour
         }
     }
 
-    public void Respawn()
+    //How to move camera and particles on impact
+    public void Impact()
     {
-        Destroy(GetComponentInChildren<TrailRenderer>());
-        rb.transform.position = spawnPoint.transform.position;
-        TrailRenderer prefab = Instantiate(trail);
-        prefab.transform.parent = this.transform;
-        prefab.transform.position = Vector3.zero;
-    }
-
-    public void AddForceToJump(int i)
-    {
-        rb.AddForce(Vector3.up * Mathf.Sqrt(jumpHeight * -2f * Physics.gravity.y), ForceMode.VelocityChange);
-    }
-
-    public void Impact(int i) 
-    {
-        shake.CamShake();
-        splashLanding.Play();
+        if (heavyAnimation)
+        {
+            shake.CamHeavyShake();
+            splashLandingHeavy.Play();
+            heavyAnimation = false;
+        }
+        else
+        {
+            shake.CamShake();
+            splashLanding.Play();
+        }
     }
 }

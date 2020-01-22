@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CrackedPlatformBehaviour : MonoBehaviour
 {
-    public float secondsToWait = 3;
+    //public float secondsToWait = 3;
 
     private MeshRenderer mRender;
     private BoxCollider bCollider;
@@ -20,16 +20,13 @@ public class CrackedPlatformBehaviour : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Player")
-        {
-            StartCoroutine(StartCrumble());
-        }
+        Debug.Log("walked on");
     }
 
-    IEnumerator StartCrumble()
-    {
-        yield return new WaitForSeconds(secondsToWait);
 
+    private void GroundPound()
+    {
+        Debug.Log("pounded");
         mRender.enabled = false;
         bCollider.enabled = false;
     }
