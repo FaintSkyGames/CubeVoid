@@ -6,7 +6,7 @@ public class Character : MonoBehaviour
 {
     public float speed = 3;
     public float jumpHeight = 2;
-    private Vector3 playerInputs = Vector3.zero;
+    public Vector3 playerInputs = Vector3.zero;
     private Rigidbody rb;
 
     public int maxJumps = 1;
@@ -21,10 +21,15 @@ public class Character : MonoBehaviour
     private CameraShake shake;
 
     public ParticleSystem splashLanding;
+    public TrailRenderer trail;
+
+    public EchoEffect echo;
 
     // Start is called before the first frame update
     void Start()
     {
+        echo = GetComponent<EchoEffect>();
+
         rb = GetComponent<Rigidbody>();
         jumpsRemaining = maxJumps;
 
@@ -52,6 +57,8 @@ public class Character : MonoBehaviour
 
         clip.AddEvent(evt2);
 
+        TrailRenderer prefab = Instantiate(trail);
+        prefab.transform.parent = this.transform;
     }
 
     // Update is called once per frame
@@ -97,6 +104,7 @@ public class Character : MonoBehaviour
         if (canMove)
         {
             rb.MovePosition(rb.position + playerInputs * speed * Time.fixedDeltaTime);
+            echo.CreateEcho();
         }
         
     }
@@ -148,7 +156,11 @@ public class Character : MonoBehaviour
 
     public void Respawn()
     {
+        Destroy(GetComponentInChildren<TrailRenderer>());
         rb.transform.position = spawnPoint.transform.position;
+        TrailRenderer prefab = Instantiate(trail);
+        prefab.transform.parent = this.transform;
+        prefab.transform.position = Vector3.zero;
     }
 
     public void AddForceToJump(int i)
