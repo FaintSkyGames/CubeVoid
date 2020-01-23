@@ -269,9 +269,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9620d880dcee245449dda453029a2c8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  totalStars: 2
+  totalStars: 1
   stars: {fileID: 192079781}
-  gameSystem: {fileID: 0}
+  gameSystem: {fileID: 7466687080230241991, guid: 1d26fab9d61bc7549924acf508ae7654,
+    type: 3}
 --- !u!65 &8296172668369772397
 BoxCollider:
   m_ObjectHideFlags: 0

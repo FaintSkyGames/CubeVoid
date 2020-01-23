@@ -245,7 +245,7 @@ MonoBehaviour:
   spawnPoint: {fileID: 8223064982136652158, guid: 522d5ad112f610142bd45e511a8c071a,
     type: 3}
   splashLanding: {fileID: 4679408998323042774}
-  splashLandingHeavy: {fileID: 0}
+  splashLandingHeavy: {fileID: 5124914935236695968}
 --- !u!95 &949244417
 Animator:
   serializedVersion: 3
@@ -278,7 +278,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeBTWSpawn: 0
-  startTimeBTWSpawn: 0
+  startTimeBTWSpawn: 0.05
   echo: {fileID: 6165458446930706193, guid: 948c8fbdd0aac2143a89259eec373a39, type: 3}
 --- !u!1001 &1698012282526935130
 PrefabInstance:
@@ -346,21 +346,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2294776472463387080, guid: ca7852423a779df4c9ddbeebd1b757ee,
-        type: 3}
-      propertyPath: InitialModule.startColor.maxColor.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2294776472463387080, guid: ca7852423a779df4c9ddbeebd1b757ee,
-        type: 3}
-      propertyPath: InitialModule.startColor.maxColor.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2294776472463387080, guid: ca7852423a779df4c9ddbeebd1b757ee,
-        type: 3}
-      propertyPath: InitialModule.startColor.maxColor.b
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ca7852423a779df4c9ddbeebd1b757ee, type: 3}
@@ -444,11 +429,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2294776472463387080, guid: ca7852423a779df4c9ddbeebd1b757ee,
         type: 3}
-      propertyPath: InitialModule.gravityModifier.scalar
-      value: 0.6
-      objectReference: {fileID: 0}
-    - target: {fileID: 2294776472463387080, guid: ca7852423a779df4c9ddbeebd1b757ee,
-        type: 3}
       propertyPath: EmissionModule.rateOverTime.scalar
       value: 200
       objectReference: {fileID: 0}
@@ -457,6 +437,12 @@ PrefabInstance:
 --- !u!4 &7513336009137396864 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3495724300100641512, guid: ca7852423a779df4c9ddbeebd1b757ee,
+    type: 3}
+  m_PrefabInstance: {fileID: 6397352207565078120}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &5124914935236695968 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 2294776472463387080, guid: ca7852423a779df4c9ddbeebd1b757ee,
     type: 3}
   m_PrefabInstance: {fileID: 6397352207565078120}
   m_PrefabAsset: {fileID: 0}
@@ -471,11 +457,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Land Particle
-      objectReference: {fileID: 0}
-    - target: {fileID: 2205258939258366032, guid: ca7852423a779df4c9ddbeebd1b757ee,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3495724300100641512, guid: ca7852423a779df4c9ddbeebd1b757ee,
         type: 3}
