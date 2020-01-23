@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2406939247513104308}
   - component: {fileID: 1203433556}
   m_Layer: 0
-  m_Name: Appearing Platform
+  m_Name: Appearing Track 1 Platform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -59,7 +59,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: cd3fd8ad092fa324599c97cce2173215, type: 2}
+  - {fileID: 2100000, guid: 530da4f849c2a894fbdf2c587f500165, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

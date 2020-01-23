@@ -17,14 +17,14 @@ public class ColourPicker : MonoBehaviour
     private int totalColours = 0;
     private int currentColour = 0;
 
-    //public Material test;
+    private bool fromSliders = false;
 
     private void Awake()
     {
         ObtainColours();
         display = GetComponent<Image>();
 
-        display.color = new Color(1, 0, 0, 1);
+        display.color = new Color32(1, 0, 0, 1);
         UpdateDisplay();
     }
 
@@ -34,12 +34,10 @@ public class ColourPicker : MonoBehaviour
         Debug.Log("before " + currentColour);
 
         currentColour += 1;
-        Debug.Log("after " + currentColour);
         if (currentColour > totalColours - 1)
         {
             currentColour = 0;
         }
-        Debug.Log("check " + currentColour);
 
         UpdateDisplay();
     }
@@ -58,18 +56,38 @@ public class ColourPicker : MonoBehaviour
 
     private void UpdateDisplay()
     {
-        Debug.Log("update");
         display.color = FindColour();
     }
 
     //correct and working
     public void SetColour()
     {
-        solid.color = FindColour();
-        cracked.color = FindColour();
-        disappearing.color = FindColour();
-        appearing.color = FindColour();
-        //spriteRenderer.color = GetColorFromString("23339a");  //
+        Color currentColour;
+
+        if (fromSliders == true)
+        {
+            currentColour = GameObject.FindGameObjectWithTag("Colour").GetComponent<Image>().color;
+            fromSliders = false;
+        }
+        else
+        {
+            currentColour = FindColour();
+        }
+
+        solid.color = currentColour;
+        cracked.color = currentColour;
+        disappearing.color = currentColour;
+
+        appearing.color = new Color32(System.Convert.ToByte(currentColour.r),
+            System.Convert.ToByte(currentColour.g), 
+            System.Convert.ToByte(currentColour.b), 
+            0);
+    }
+
+    public void SetColourFromSliders()
+    {
+        fromSliders = true;
+        SetColour();
     }
 
     // correct and working
@@ -112,66 +130,12 @@ public class ColourPicker : MonoBehaviour
             }
         }
 
-        /*
-        Debug.Log("before "+ numbers[0]);
-        Debug.Log("before " + numbers[1]);
-        Debug.Log("before " + numbers[2]);
-        */
+        byte red = System.Convert.ToByte(numbers[0]);
+        byte green = System.Convert.ToByte(numbers[1]);
+        byte blue = System.Convert.ToByte(numbers[2]);
+        byte alpha = 255;
 
-        float red = System.Convert.ToInt32(numbers[0]);
-        float green = System.Convert.ToInt32(numbers[1]);
-        float blue = System.Convert.ToInt32(numbers[2]);
-        float alpha = 1f;
 
-        /*
-        Debug.Log("after " + red);
-        Debug.Log("after " + green);
-        Debug.Log("after " + blue);
-        */
-
-        return new Color(red, green, blue, alpha);
+        return new Color32(red, green, blue, alpha);
     }
-
-
-
-    /* 1st attempt
-     * 
-     *     [SerializeField] private GameObject spriteGameObject;
-    SpriteRenderer spriteRenderer;
-    private int HexToDec(string hex)
-    {
-        int dec = System.Convert.ToInt32(hex, 32); //
-        return dec;
-    }
-
-    private string DecToHex(int dec)
-    {
-        return dec.ToString("X2");
-    }
-
-    private string FloatToHex(float value)
-    {
-        return DecToHex(Mathf.RoundToInt(value * 255f));
-    }
-    private float HexToFloat(string hex)
-    {
-        return HexToDec(hex) / 255f;  //
-    }
-
-    private Color GetColorFromString(string hexString)
-    {
-        float red = HexToFloat(hexString.Substring(0, 2));
-        float green = HexToFloat(hexString.Substring(2, 2));
-        float blue = HexToFloat(hexString.Substring(4, 2));  //
-        float alpha = 1f;
-
-        if (hexString.Length >= 8)
-        {
-            alpha = HexToFloat(hexString.Substring(6, 2));
-        }
-
-        return new Color(red, green, blue, alpha);
-    }
-
-    */
 }

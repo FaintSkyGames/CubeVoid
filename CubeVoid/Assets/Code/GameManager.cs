@@ -5,8 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public GameObject controls = null;
-
     public GameObject pauseMenu = null;
     public bool paused = false;
     public GameObject player = null;
@@ -26,17 +24,7 @@ public class GameManager : MonoBehaviour
 
     public void ShowControls()
     {
-        if (controls != null)
-        {
-            if (controls.active == false)
-            {
-                controls.active = true;
-            }
-            else
-            {
-                controls.active = false;
-            }
-        }        
+        SceneManager.LoadScene("Options");
     }
 
     public void BackToMenu()
@@ -60,7 +48,7 @@ public class GameManager : MonoBehaviour
 
             if (pauseMenu != null)
             {
-                pauseMenu.active = paused;
+                pauseMenu.SetActive(paused);
 
                 player.GetComponent<Character>().canMove = !paused;
             }
@@ -70,6 +58,6 @@ public class GameManager : MonoBehaviour
     public void Resume()
     {
         paused = false;
-        pauseMenu.active = paused;
+        pauseMenu.SetActive(paused);
     }
 }
