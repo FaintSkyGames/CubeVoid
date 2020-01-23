@@ -10,34 +10,54 @@ public class Tutorial : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (PlayerPrefs.GetInt("Stars Collected") != 0)
+        if (PlayerPrefs.GetString("ShowTutorialText") == "Yes")
         {
-            if (tutorialTxt2 != null)
+            if (PlayerPrefs.GetInt("Stars Collected") != 0)
             {
-                tutorialTxt2.SetActive(true);
+                if (tutorialTxt2 != null)
+                {
+                    tutorialTxt2.SetActive(true);
+                }
+                else
+                {
+                    tutorialTxt1.SetActive(true);
+                }
             }
             else
             {
                 tutorialTxt1.SetActive(true);
             }
+
+            tutorialBox.SetActive(true);
         }
         else
         {
-            tutorialTxt1.SetActive(true);
+            tutorialTxt1.SetActive(false);
+            tutorialTxt2.SetActive(false);
+            tutorialBox.SetActive(false);
         }
-
-        tutorialBox.SetActive(true);
     }
 
     private void OnTriggerExit(Collider other)
     {
-        tutorialTxt1.SetActive(false);
-
-        if (tutorialTxt2 != null)
+        if (PlayerPrefs.GetString("ShowTutorialText") == "Yes")
         {
-            tutorialTxt2.SetActive(false);
-        }
+            tutorialTxt1.SetActive(false);
 
-        tutorialBox.SetActive(false);
+            if (tutorialTxt2 != null)
+            {
+                tutorialTxt2.SetActive(false);
+            }
+
+            tutorialBox.SetActive(false);
+        }
+        else
+        {
+            tutorialTxt1.SetActive(false);
+            tutorialTxt2.SetActive(false);
+            tutorialBox.SetActive(false);
+        }
     }
+
+
 }

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Options : MonoBehaviour
 {
@@ -9,6 +10,19 @@ public class Options : MonoBehaviour
     public GameObject colours;
 
     public GameObject blocks;
+
+    public Toggle tutorialText;
+
+    private void Start()
+    {
+
+        if (PlayerPrefs.GetString("ShowTutorialText") == "Yes")
+        {
+            Debug.Log(PlayerPrefs.GetString("ShowTutorialText"));
+            tutorialText.isOn = true;
+        }
+
+    }
 
     public void ShowControls()
     {
@@ -31,6 +45,22 @@ public class Options : MonoBehaviour
         colours.SetActive(false);
         blocks.SetActive(false);
     }
+
+    public void SetTutorialPreferance()
+    {
+        if (PlayerPrefs.GetString("ShowTutorialText") == "Yes")
+        {
+            Debug.Log("yes to no");
+            PlayerPrefs.SetString("ShowTutorialText", "No");
+        }
+        else
+        {
+            Debug.Log("no to yes");
+            PlayerPrefs.SetString("ShowTutorialText", "Yes");
+        }
+    }
+
+
 
 
 

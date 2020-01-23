@@ -9,6 +9,11 @@ public class GameManager : MonoBehaviour
     public bool paused = false;
     public GameObject player = null;
 
+    public void Start()
+    {
+        this.GetComponent<AudioSource>().volume = PlayerPrefs.GetFloat("Volume");
+    }
+
 
     public void StartGame()
     {
