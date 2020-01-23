@@ -30,9 +30,6 @@ public class ColourPicker : MonoBehaviour
 
     public void NextColour ()
     {
-        Debug.Log("next");
-        Debug.Log("before " + currentColour);
-
         currentColour += 1;
         if (currentColour > totalColours - 1)
         {
@@ -44,7 +41,6 @@ public class ColourPicker : MonoBehaviour
 
     public void PrevColour()
     {
-        Debug.Log("prev");
         currentColour -= 1;
         if (currentColour < 0)
         {
@@ -104,11 +100,6 @@ public class ColourPicker : MonoBehaviour
         }
 
         sr.Close();
-
-        for (int i = 0; i < RGBAcolours.Length; i++)
-        {
-            Debug.Log(RGBAcolours[i]);
-        }
     }
 
     public Color FindColour()

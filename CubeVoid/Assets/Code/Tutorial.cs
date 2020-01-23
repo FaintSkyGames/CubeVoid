@@ -54,7 +54,10 @@ public class Tutorial : MonoBehaviour
         else
         {
             tutorialTxt1.SetActive(false);
-            tutorialTxt2.SetActive(false);
+            if (tutorialTxt2 != null)
+            {
+                tutorialTxt2.SetActive(false);
+            }
             tutorialBox.SetActive(false);
         }
     }

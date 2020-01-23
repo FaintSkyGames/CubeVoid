@@ -46,7 +46,6 @@ public class OnStarCollect : MonoBehaviour
         if (collision.gameObject.tag == "Player" && allCollected == true)
         {
             gameSystem.BackToMenu();
-            //Debug.Log("EndGame");
         }
     }
 

@@ -4,16 +4,31 @@ TextureImporter:
   internalIDToNameTable:
   - first:
       213: 5499845169743373932
-    second: nothing
+    second: colours txt
   - first:
       213: 1786246863626547964
     second: Paused
   - first:
       213: -8446693202624771874
-    second: Quit Btn
+    second: Btn
   - first:
       213: -1584816463137349049
-    second: Resume Btn
+    second: Btn 2
+  - first:
+      213: -7045379884025577804
+    second: settings txt
+  - first:
+      213: -4229888009036020857
+    second: controls txt
+  - first:
+      213: -2238599821023768853
+    second: menu txt
+  - first:
+      213: -6280961769200945388
+    second: quit txt
+  - first:
+      213: 4220810616593482009
+    second: resume text
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -98,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: nothing
+      name: colours txt
       rect:
         serializedVersion: 2
-        x: 2840
-        y: 1718
-        width: 500
-        height: 500
+        x: 2510
+        y: 1966
+        width: 775
+        height: 252
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -123,7 +138,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 411
-        y: 1970
+        y: 1974
         width: 636
         height: 248
       alignment: 0
@@ -140,7 +155,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Quit Btn
+      name: Btn
       rect:
         serializedVersion: 2
         x: 197
@@ -161,11 +176,11 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Resume Btn
+      name: Btn 2
       rect:
         serializedVersion: 2
         x: 200
-        y: 292
+        y: 296
         width: 1087
         height: 631
       alignment: 0
@@ -177,6 +192,111 @@ TextureImporter:
       bones: []
       spriteID: 2678d9d2ab367f34fa8fdb9e15932046
       internalID: -1584816463137349049
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: settings txt
+      rect:
+        serializedVersion: 2
+        x: 2461
+        y: 1620
+        width: 802
+        height: 275
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 46646f8b805dbc44280c12655780dd7c
+      internalID: -7045379884025577804
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: controls txt
+      rect:
+        serializedVersion: 2
+        x: 2454
+        y: 1296
+        width: 891
+        height: 253
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d16953e881387bd4fa1a1b0a9961f284
+      internalID: -4229888009036020857
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: menu txt
+      rect:
+        serializedVersion: 2
+        x: 2759
+        y: 965
+        width: 564
+        height: 275
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a01a08d207decab41bffb9d915921f7b
+      internalID: -2238599821023768853
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: quit txt
+      rect:
+        serializedVersion: 2
+        x: 2717
+        y: 638
+        width: 561
+        height: 267
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dead79f17cc03df449bfbabff848dade
+      internalID: -6280961769200945388
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: resume text
+      rect:
+        serializedVersion: 2
+        x: 2721
+        y: 284
+        width: 719
+        height: 264
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 65a058efba477834aa99ce1400bd06e9
+      internalID: 4220810616593482009
       vertices: []
       indices: 
       edges: []

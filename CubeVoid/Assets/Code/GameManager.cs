@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    public GameObject levelSelector = null;
+    public GameObject mainMenu = null;
     public GameObject pauseMenu = null;
     public bool paused = false;
     public GameObject player = null;
@@ -12,13 +14,6 @@ public class GameManager : MonoBehaviour
     public void Start()
     {
         this.GetComponent<AudioSource>().volume = PlayerPrefs.GetFloat("Volume");
-    }
-
-
-    public void StartGame()
-    {
-        PlayerPrefs.SetInt("Stars Collected", 0);
-        SceneManager.LoadScene("Level1");
     }
 
     public void QuitGame()
@@ -64,5 +59,28 @@ public class GameManager : MonoBehaviour
     {
         paused = false;
         pauseMenu.SetActive(paused);
+    }
+
+    public void SelectLevel()
+    {
+        levelSelector.SetActive(true);
+        mainMenu.SetActive(false);
+    }
+
+    public void Back()
+    {
+        levelSelector.SetActive(false);
+        mainMenu.SetActive(true);
+    }
+
+    public void PlayLevel1()
+    {
+        PlayerPrefs.SetInt("Stars Collected", 0);
+        SceneManager.LoadScene("Level1");
+    }
+    public void PlayLevel2()
+    {
+        PlayerPrefs.SetInt("Stars Collected", 0);
+        SceneManager.LoadScene("Level2");
     }
 }
